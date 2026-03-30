@@ -84,3 +84,39 @@ export default function Error({ reset }: { reset: () => void }) {
 | 404 | `not-found.tsx` |
 | 500 / Network | Toast (`toast.error`) |
 | Render crash | `ComponentErrorBoundary` |
+
+## Barrel Export & Import Rules
+
+Every feature exposes its public API only through `index.ts`. Direct internal path imports are forbidden.
+
+```ts
+// ✗ Forbidden — direct internal path
+import { CompanyCard } from "@/features/company/sections/companyList/components/CompanyCard"
+
+// ✓ Correct — via barrel
+import { CompanyListPage } from "@/features/company/sections"
+import { CompanyCard } from "@/features/company"
+```
+
+### What Should `index.ts` Export?
+
+Only export what other features or the `app/` layer need. Internal components are not exported.
+
+```ts
+// features/company/index.ts
+
+// ✓ Public API
+export { CompanyListPage } from "./sections/companyList/CompanyListPage"
+export type { Company } from "./types/company.types"
+
+// ✗ Do not export — feature-internal
+// export { CompanyCard } from "./sections/companyList/components/CompanyCard"
+```
+
+### `components/shared/` and `services/`
+
+These directories are not features — no barrel requirement. Direct imports are fine.
+
+```ts
+import { EmptyState } from "@/components/shared/EmptyState"
+```

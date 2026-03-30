@@ -7,18 +7,15 @@ Path alias: `@/*` → `src/*`
 ## Docs
 - Architecture, folder structure, component placement → `docs/architecture.md`
 - Naming conventions (camelCase / PascalCase / snake_case) → `docs/rules/naming.md`
-- React Query usage & cache invalidation → `docs/rules/react-query.md`
-- State management (React Query vs Redux) → `docs/rules/state.md`
+- Data fetching, state management (React Query, Redux) → `docs/rules/data.md`
+- User feedback (skeleton, empty/error states, toast) → `docs/rules/feedback.md`
+- App Router anatomy, route checklist, barrel exports → `docs/rules/routing.md`
+- Component rules, performance (memo/useMemo/useCallback) → `docs/rules/components.md`
 - Step forms (react-hook-form + zod) → `docs/rules/forms.md`
-- Component rules (one per file, JSDoc) → `docs/rules/components.md`
 - Styling (design tokens, no raw Tailwind colors) → `docs/rules/styling.md`
-- Loading / Empty / Error states → `docs/rules/states.md`
 - TypeScript strictness (no any, explicit props, API types) → `docs/rules/typescript.md`
-- Notifications & toast pattern → `docs/rules/notifications.md`
-- Barrel exports & feature imports → `docs/rules/barrel-exports.md`
-- App Router anatomy (page / layout / loading / error) → `docs/rules/routing.md`
+- Naming conventions (camelCase / PascalCase / snake_case) → `docs/rules/naming.md`
 - Accessibility minimums (aria-label, sr-only, form labels) → `docs/rules/a11y.md`
-- Performance (memo / useMemo / useCallback — when to use and when not to) → `docs/rules/performance.md`
 
 ## Skills
 - **frontend-design** (`.agents/skills/frontend-design/SKILL.md`) — applied to every component and page. Before writing UI code, go through design thinking: purpose, tone, differentiation.

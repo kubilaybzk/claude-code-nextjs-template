@@ -104,3 +104,49 @@ Add `<FormValidationDebugger />` as the last child of every form's JSX (developm
 - `// @ts-ignore` is forbidden
 - Magic numbers/strings are forbidden — extract to constants
 - IP addresses, hashes, and code values must be rendered with `font-mono`
+
+## Performance — memo / useMemo / useCallback
+
+Premature optimization is forbidden. Measure first, optimize second.
+
+### React.memo
+
+Wrap with `memo` only when the parent re-renders frequently **and** the component's render is measurably expensive (list row, chart, large table).
+
+```tsx
+// ✓ Appropriate — each row in a large list
+export const CompanyRow = memo(function CompanyRow({ company }: CompanyRowProps) { ... })
+
+// ✗ Unnecessary — simple, rarely re-renders
+export const PageTitle = memo(function PageTitle({ title }: { title: string }) { ... })
+```
+
+### useMemo
+
+Use only for genuinely expensive computations. Not for simple `filter` / `map`.
+
+```ts
+// ✓ Heavy computation over large dataset
+const chartData = useMemo(() => transformRawMetrics(rawData), [rawData])
+
+// ✗ Simple filter — React handles it fast, no memo needed
+const active = items.filter(i => i.active)
+```
+
+### useCallback
+
+Use only when passed to a `memo`-wrapped child or used in another hook's dependency array.
+
+```ts
+// ✓ Passed to a memo'd child
+const handleDelete = useCallback((id: string) => deleteCompany(id), [deleteCompany])
+
+// ✗ No memo'd child, not in any dependency
+const handleClick = useCallback(() => setOpen(true), [])
+```
+
+### Strictly Forbidden
+
+- Adding memo/useMemo based on intuition without profiler data
+- Wrapping every component with `memo` by default
+- `useCallback` with empty `[]` dependency array (closure bug risk)

@@ -1,4 +1,4 @@
-# Loading / Empty / Error States
+# User Feedback Rules — States & Notifications
 
 ## Loading — Skeleton
 
@@ -39,11 +39,7 @@ if (!data?.length) {
 }
 ```
 
-Props:
-- `title` — required, short heading
-- `description` — optional, tell the user what to do next
-- `action` — optional, CTA button
-- `icon` — optional, custom icon override
+Props: `title` (required) · `description` · `action` · `icon`
 
 ## Error State
 
@@ -63,7 +59,7 @@ if (isError) {
 }
 ```
 
-## Order
+## Render Order
 
 Every component that uses React Query data must follow this check order:
 
@@ -74,3 +70,38 @@ if (!data?.length) return <EmptyState title="..." />
 
 return <MyList data={data} />
 ```
+
+## Toast — `sonner`
+
+| Case | Usage |
+|---|---|
+| Mutation success (create / update / delete) | `toast.success(...)` — 3 seconds |
+| Unexpected server error (5xx / network) | `toast.error(...)` — 5 seconds |
+| Info message | `toast.info(...)` |
+
+Technical error details (stack trace, error code) must not be shown in toasts.
+
+## Inline — Form Validation Errors
+
+Form field errors are shown inline below the field, never as a toast.
+
+```tsx
+// ✗ Forbidden
+toast.error("Name is required.")
+
+// ✓ Correct
+<FormItem>
+  <FormControl><Input {...field} /></FormControl>
+  <FormMessage />
+</FormItem>
+```
+
+## Summary
+
+| Case | Channel |
+|---|---|
+| Mutation success / error | Toast |
+| Form field validation | Inline `<FormMessage />` |
+| Page / list loading error | `<ErrorState />` |
+| Page / list empty | `<EmptyState />` |
+| HTTP errors (400 / 401 / 403 / 500) | See full table → `docs/rules/routing.md` |
