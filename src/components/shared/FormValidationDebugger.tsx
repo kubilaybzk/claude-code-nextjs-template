@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
-import { CommonIcons } from '@/constants/icons'
+import { BugIcon, ChevronDownIcon, ChevronUpIcon, PlayIcon, DeleteIcon, XIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useDebugMode, DEBUG_STORAGE_KEY } from '@/hooks/useDebugMode'
 
@@ -68,12 +68,12 @@ export function FormValidationDebugger({
           type="button"
           onClick={() => setIsCollapsed((prev) => !prev)}
         >
-          <CommonIcons.dev.bug data-icon="inline-start" />
+          <BugIcon data-icon="inline-start" />
           {label} Debugger
           {isCollapsed ? (
-            <CommonIcons.ui.chevronDown data-icon="inline-end" />
+            <ChevronDownIcon data-icon="inline-end" />
           ) : (
-            <CommonIcons.ui.chevronUp data-icon="inline-end" />
+            <ChevronUpIcon data-icon="inline-end" />
           )}
         </Button>
 
@@ -134,7 +134,7 @@ export function FormValidationDebugger({
               variant="outline"
               onClick={() => trigger()}
             >
-              <CommonIcons.action.play data-icon="inline-start" />
+              <PlayIcon data-icon="inline-start" />
               Validate All
             </Button>
             <Button
@@ -144,7 +144,7 @@ export function FormValidationDebugger({
               variant="outline"
               onClick={() => reset()}
             >
-              <CommonIcons.action.delete data-icon="inline-start" />
+              <DeleteIcon data-icon="inline-start" />
               Reset Form
             </Button>
             <Button
@@ -157,7 +157,7 @@ export function FormValidationDebugger({
                 window.location.reload()
               }}
             >
-              <CommonIcons.action.close data-icon="inline-start" />
+              <XIcon data-icon="inline-start" />
               Debug Kapat
             </Button>
           </div>
@@ -229,9 +229,9 @@ export function FormValidationDebugger({
               >
                 Form Values (JSON)
                 {isValuesExpanded ? (
-                  <CommonIcons.ui.chevronUp data-icon="inline-end" />
+                  <ChevronUpIcon data-icon="inline-end" />
                 ) : (
-                  <CommonIcons.ui.chevronDown data-icon="inline-end" />
+                  <ChevronDownIcon data-icon="inline-end" />
                 )}
               </Button>
               {isValuesExpanded && (
@@ -252,7 +252,7 @@ export function FormValidationDebugger({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 // ============================================================
