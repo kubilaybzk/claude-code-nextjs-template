@@ -19,7 +19,7 @@ src/
 ├── features/[name]/            # Feature modules (e.g. company, asset)
 │   ├── components/             # Components shared across multiple sections of this feature
 │   ├── sections/
-│   │   └── [section]/          # e.g. createCompany, companyList
+│   │   └── [section]/          # e.g. create-company, company-list
 │   │       ├── *Page.tsx | *Provider.tsx
 │   │       ├── components/     # Components used ONLY in this section
 │   │       └── steps/          # Wizard steps (if applicable)

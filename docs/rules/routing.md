@@ -91,7 +91,7 @@ Every feature exposes its public API only through `index.ts`. Direct internal pa
 
 ```ts
 // ✗ Forbidden — direct internal path
-import { CompanyCard } from "@/features/company/sections/companyList/components/CompanyCard"
+import { CompanyCard } from "@/features/company/sections/company-list/components/CompanyCard"
 
 // ✓ Correct — via barrel
 import { CompanyListPage } from "@/features/company/sections"
@@ -106,11 +106,11 @@ Only export what other features or the `app/` layer need. Internal components ar
 // features/company/index.ts
 
 // ✓ Public API
-export { CompanyListPage } from "./sections/companyList/CompanyListPage"
+export { CompanyListPage } from "./sections/company-list/CompanyListPage"
 export type { Company } from "./types/company.types"
 
 // ✗ Do not export — feature-internal
-// export { CompanyCard } from "./sections/companyList/components/CompanyCard"
+// export { CompanyCard } from "./sections/company-list/components/CompanyCard"
 ```
 
 ### `components/shared/` and `services/`
