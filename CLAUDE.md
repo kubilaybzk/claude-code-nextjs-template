@@ -1,40 +1,35 @@
 # Project Guide
 
 ## Stack
+
 Next.js (App Router) · shadcn/ui (radix-vega) · TanStack Query · Redux Toolkit · Axios
 Path alias: `@/*` → `src/*`
 
-## Docs
+## Canonical Docs (source of truth)
+
 - Architecture, folder structure, component placement → `docs/architecture.md`
-- Naming conventions (camelCase / PascalCase / snake_case) → `docs/rules/naming.md`
-- Data fetching, state management (React Query, Redux) → `docs/rules/data.md`
-- User feedback (skeleton, empty/error states, toast) → `docs/rules/feedback.md`
+- Naming conventions → `docs/rules/naming.md`
+- Data fetching & state management → `docs/rules/data.md`
+- User feedback (skeleton/empty/error/toast) → `docs/rules/feedback.md`
 - App Router anatomy, route checklist, barrel exports → `docs/rules/routing.md`
-- Component rules, performance (memo/useMemo/useCallback) → `docs/rules/components.md`
+- Component rules & performance guidance → `docs/rules/components.md`
 - Step forms (react-hook-form + zod) → `docs/rules/forms.md`
-- Styling (design tokens, no raw Tailwind colors) → `docs/rules/styling.md`
-- TypeScript strictness (no any, explicit props, API types) → `docs/rules/typescript.md`
-- Naming conventions (camelCase / PascalCase / snake_case) → `docs/rules/naming.md`
-- Accessibility minimums (aria-label, sr-only, form labels) → `docs/rules/a11y.md`
+- Styling (design tokens, Tailwind constraints) → `docs/rules/styling.md`
+- TypeScript strictness & API types → `docs/rules/typescript.md`
+- Accessibility minimums → `docs/rules/a11y.md`
 
 ## Skills
+
 - **frontend-design** (`.agents/skills/frontend-design/SKILL.md`) — applied to every component and page. Before writing UI code, go through design thinking: purpose, tone, differentiation.
 
-## Key Rules (always apply)
-- `app/` is thin wrappers only — no business logic; max ~15 lines per page.tsx
-- `components/ui/` is never modified
-- All backend operations use React Query, never direct API calls in components
-- One component per file; `index.tsx` filename forbidden — use component name
-- JSDoc + `@example` on every exported component and function
-- No raw Tailwind colors (`text-red-500` etc.) — use design tokens; `space-y/x-*` → `flex gap-*`; `w-4 h-4` → `size-4`
-- Feature `store/` only when explicitly requested
-- Empty state → `<EmptyState />` · Error state → `<ErrorState />` · Loading → skeleton (never spinner)
-- No `any` — use `unknown` + narrowing; no `// @ts-ignore`; no non-null assertion `!`
-- Mutation success/error → `sonner` toast; form validation → inline `<FormMessage />` only
-- Feature imports always via barrel (`sections/index.ts`) — no direct internal paths
-- Every route needs `loading.tsx` + `error.tsx` + `not-found.tsx`
-- Every data-fetching component wrapped in `<ComponentErrorBoundary>`
-- `<img>` forbidden — use `next/image`; `'use client'` only when interactivity needed
-- Text search inputs require `useDebounce` (300ms)
-- Icon-only buttons must have `aria-label`
-- No memo/useMemo/useCallback without profiler evidence
+## Key Rules (always apply) — short guardrails
+
+- `docs/architecture.md`: `app/` thin wrapper only (page.tsx ~15 lines), component placement decision tree
+- `components/ui/`: never modify (shadcn primitives)
+- `docs/rules/data.md`: backend operations via React Query only; no direct API calls in components; no server-state in Redux
+- `docs/rules/routing.md`: every route has `page.tsx` + `loading.tsx` + `error.tsx` + `not-found.tsx`; barrel-only imports from features
+- `docs/rules/components.md`: one component per file; `ComponentErrorBoundary` per data component; debounce for text search; no premature memoization
+- `docs/rules/typescript.md`: no `any`, no `// @ts-ignore`, avoid non-null `!`, explicit named props interfaces
+- `docs/rules/styling.md`: no raw Tailwind colors; use semantic tokens; `space-*` → `gap-*`, `w/h-*` → `size-*`
+- `docs/rules/feedback.md`: loading = skeleton (no spinner); empty/error states via shared components; mutations toast with `sonner`
+- `docs/rules/a11y.md`: icon-only buttons require `aria-label`; forms require labels
