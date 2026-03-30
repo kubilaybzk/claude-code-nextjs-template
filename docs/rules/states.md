@@ -2,8 +2,8 @@
 
 ## Loading — Skeleton
 
-Content alanlarında spinner kullanılmaz. Her liste veya kart alanı için bir skeleton component yazılır.
-Skeleton, gerçek component ile aynı layout boyutlarını korumalıdır.
+Spinners are forbidden in content areas. Write a skeleton component for every list or card area.
+The skeleton must match the real component's layout dimensions.
 
 ```tsx
 // ✗ Forbidden
@@ -13,7 +13,7 @@ if (isLoading) return <Spinner />
 if (isLoading) return <CompanyListSkeleton />
 ```
 
-Skeleton dosyası, gerçek component'in yanına konur:
+The skeleton file lives next to the real component:
 
 ```
 sections/companyList/components/
@@ -23,7 +23,7 @@ sections/companyList/components/
 
 ## Empty State
 
-Veri yoksa `<EmptyState />` kullanılır. Inline mesaj veya koşullu render yasak.
+When there is no data, use `<EmptyState />`. Inline messages or conditional renders are forbidden.
 
 ```tsx
 import { EmptyState } from "@/components/shared/EmptyState"
@@ -31,23 +31,23 @@ import { EmptyState } from "@/components/shared/EmptyState"
 if (!data?.length) {
   return (
     <EmptyState
-      title="Henüz şirket eklenmedi"
-      description="İlk şirketi eklemek için aşağıdaki butona tıklayın."
-      action={<Button onClick={onAdd}>Şirket Ekle</Button>}
+      title="No companies yet"
+      description="Click the button below to add your first company."
+      action={<Button onClick={onAdd}>Add Company</Button>}
     />
   )
 }
 ```
 
 Props:
-- `title` — zorunlu, kısa başlık
-- `description` — isteğe bağlı, kullanıcıya ne yapacağını anlat
-- `action` — isteğe bağlı, CTA butonu
-- `icon` — isteğe bağlı, özel ikon
+- `title` — required, short heading
+- `description` — optional, tell the user what to do next
+- `action` — optional, CTA button
+- `icon` — optional, custom icon override
 
 ## Error State
 
-React Query `isError` durumunda `<ErrorState />` kullanılır. Hata sessizce geçiştirilemez.
+Use `<ErrorState />` when React Query's `isError` is true. Errors must never be silently ignored.
 
 ```tsx
 import { ErrorState } from "@/components/shared/ErrorState"
@@ -55,17 +55,17 @@ import { ErrorState } from "@/components/shared/ErrorState"
 if (isError) {
   return (
     <ErrorState
-      title="Veriler yüklenemedi"
-      description="Lütfen tekrar deneyin veya sayfayı yenileyin."
-      action={<Button variant="outline" onClick={() => refetch()}>Tekrar Dene</Button>}
+      title="Failed to load data"
+      description="Please try again or refresh the page."
+      action={<Button variant="outline" onClick={() => refetch()}>Retry</Button>}
     />
   )
 }
 ```
 
-## Sıralama
+## Order
 
-React Query verisi olan her component'te kontrol sırası şu şekilde olmalıdır:
+Every component that uses React Query data must follow this check order:
 
 ```tsx
 if (isLoading) return <MySkeleton />

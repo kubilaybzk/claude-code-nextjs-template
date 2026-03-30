@@ -1,62 +1,49 @@
 # Notification & Toast Rules
 
-Bildirim kanalı iki türdür: **toast** ve **inline**. Hangisinin nerede kullanılacağı aşağıda tanımlanmıştır.
+There are two notification channels: **toast** and **inline**. Full HTTP error code table → `docs/rules/routing.md`.
 
 ## Toast — `sonner`
 
-Kullanıcı bir aksiyon aldı, sonuç döndü → toast göster.
-
-| Durum | Kullanım |
+| Case | Usage |
 |---|---|
-| Mutasyon başarılı (create / update / delete) | `toast.success(...)` |
-| Beklenmedik sunucu hatası (5xx) | `toast.error(...)` |
-| Kullanıcıya bilgi mesajı (info) | `toast.info(...)` |
+| Mutation success (create / update / delete) | `toast.success(...)` — 3 seconds |
+| Unexpected server error (5xx / network) | `toast.error(...)` — 5 seconds |
+| Info message | `toast.info(...)` |
 
 ```ts
-// lib/[name].queries.ts içinde
+// inside lib/[name].queries.ts
 onSuccess: () => {
-  toast.success("Şirket başarıyla oluşturuldu.")
+  toast.success("Company created successfully.")
   queryClient.invalidateQueries({ queryKey: queryKeys.company.list() })
 },
 onError: () => {
-  toast.error("İşlem sırasında bir hata oluştu.")
+  toast.error("An error occurred. Please try again.")
 },
 ```
 
-## Inline — Form Validasyon Hataları
+Technical error details (stack trace, error code) must not be shown in toasts.
 
-Form alanına ait hatalar toast değil, alanın altında inline gösterilir.
-react-hook-form + zod otomatik olarak bunu yönetir.
+## Inline — Form Validation Errors
+
+Form field errors are shown inline below the field, never as a toast.
+react-hook-form + zod handles this automatically.
 
 ```tsx
 // ✗ Forbidden
-toast.error("Ad alanı zorunludur.")
+toast.error("Name is required.")
 
-// ✓ Correct — react-hook-form ile otomatik
-<FormField
-  name="name"
-  render={({ field }) => (
-    <FormItem>
-      <FormControl><Input {...field} /></FormControl>
-      <FormMessage />   {/* hata buraya düşer */}
-    </FormItem>
-  )}
-/>
+// ✓ Correct
+<FormItem>
+  <FormControl><Input {...field} /></FormControl>
+  <FormMessage />
+</FormItem>
 ```
 
-## Sayfa / Liste Hataları
+## Summary
 
-Veri yükleme hatası → toast değil, `<ErrorState />` component'i kullanılır.
-
-```tsx
-if (isError) return <ErrorState title="Veriler yüklenemedi" action={<Button onClick={() => refetch()}>Tekrar Dene</Button>} />
-```
-
-## Özet
-
-| Durum | Kanal |
+| Case | Channel |
 |---|---|
-| Mutasyon başarılı/hatalı | Toast |
-| Form alan validasyonu | Inline (`<FormMessage />`) |
-| Sayfa / liste yükleme hatası | `<ErrorState />` |
-| Sunucu 401/403 | Toast + redirect |
+| Mutation success / error | Toast |
+| Form field validation | Inline `<FormMessage />` |
+| Page / list loading error | `<ErrorState />` — see `docs/rules/states.md` |
+| HTTP errors (400 / 401 / 403 / 500) | See full table → `docs/rules/routing.md` |

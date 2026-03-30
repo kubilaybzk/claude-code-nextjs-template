@@ -1,20 +1,20 @@
 # Performance Rules — memo / useMemo / useCallback
 
-Erken optimizasyon yasaktır. Aşağıdaki kurallar "ne zaman kullan" kadar "ne zaman kullanma"yı da tanımlar.
+Premature optimization is forbidden. These rules define when to use each tool as much as when not to.
 
 ## React.memo
 
-Bir component yalnızca şu koşulda `memo` ile sarılır:
-- Parent sık re-render oluyor **ve**
-- Component'in render'ı ölçülebilir şekilde pahalı (liste satırı, grafik, büyük tablo)
+A component should be wrapped with `memo` only when:
+- The parent re-renders frequently **and**
+- The component's render is measurably expensive (list row, chart, large table)
 
 ```tsx
-// ✓ Uygun — büyük listede her satır için
+// ✓ Appropriate — each row in a large list
 export const CompanyRow = memo(function CompanyRow({ company }: CompanyRowProps) {
   return <tr>...</tr>
 })
 
-// ✗ Gereksiz — basit, nadiren render olan component
+// ✗ Unnecessary — simple, rarely re-renders
 export const PageTitle = memo(function PageTitle({ title }: { title: string }) {
   return <h1>{title}</h1>
 })
@@ -22,50 +22,50 @@ export const PageTitle = memo(function PageTitle({ title }: { title: string }) {
 
 ## useMemo
 
-Hesaplama gerçekten pahalıysa kullanılır. Primitive dönüş değerleri veya basit map/filter için **kullanılmaz**.
+Use only when the computation is genuinely expensive. Do not use for primitive return values or simple map/filter.
 
 ```ts
-// ✓ Uygun — büyük veri kümesi üzerinde ağır hesaplama
+// ✓ Appropriate — heavy computation over large dataset
 const chartData = useMemo(() => transformRawMetrics(rawData), [rawData])
 
-// ✗ Gereksiz — basit filter, React zaten hızlı halleder
+// ✗ Unnecessary — simple filter, React handles it fast
 const active = useMemo(() => items.filter(i => i.active), [items])
 
-// ✓ Bunun yerine
+// ✓ Instead
 const active = items.filter(i => i.active)
 ```
 
 ## useCallback
 
-Yalnızca şu durumda kullanılır:
-- `memo` ile sarılmış bir child'a prop olarak geçiyorsa **veya**
-- Başka bir hook'un dependency array'inde kullanılıyorsa
+Use only when:
+- Passed as a prop to a `memo`-wrapped child **or**
+- Used in another hook's dependency array
 
 ```ts
-// ✓ Uygun — memo'lu child'a geçiyor
+// ✓ Appropriate — passed to a memo'd child
 const handleDelete = useCallback((id: string) => {
   deleteCompany(id)
 }, [deleteCompany])
 
-// ✗ Gereksiz — memo'lu child yok, dependency'de de yok
+// ✗ Unnecessary — no memo'd child, not in any dependency
 const handleClick = useCallback(() => {
   setOpen(true)
 }, [])
 ```
 
-## Karar Ağacı
+## Decision Tree
 
 ```
-Gerçekten yavaş mı? (profiler ile ölçtün mü?)
-  ├── Hayır → optimizasyon yapma
-  └── Evet → ne yavaşlatıyor?
-        ├── Pahalı hesaplama → useMemo
-        ├── Gereksiz child render → React.memo + useCallback
-        └── Her ikisi → ikisini birlikte uygula
+Is it actually slow? (did you measure with the profiler?)
+  ├── No  → don't optimize
+  └── Yes → what's causing it?
+        ├── Expensive computation          → useMemo
+        ├── Unnecessary child re-renders   → React.memo + useCallback
+        └── Both                           → apply both
 ```
 
-## Kesinlikle Yasak
+## Strictly Forbidden
 
-- Profiler olmadan sezgiyle memo/useMemo eklemek
-- Her component'i otomatik olarak `memo` ile sarmak
-- Boş dependency array `[]` ile `useCallback` kullanmak (closure bug riski)
+- Adding memo/useMemo based on intuition without profiler data
+- Wrapping every component with `memo` by default
+- Using `useCallback` with an empty dependency array `[]` (closure bug risk)

@@ -1,65 +1,86 @@
 # App Router — Route Anatomy
 
-`app/` klasörü ince bir sarmalayıcıdır. Business logic, veri çekme ve state buraya gelmez.
+`app/` is a thin wrapper. No business logic, data fetching, or state belongs here.
 
-## Dosya Sorumlulukları
+## File Responsibilities
 
-| Dosya | Sorumluluk |
+| File | Responsibility |
 |---|---|
-| `page.tsx` | Yalnızca feature section'ı import edip render eder |
-| `layout.tsx` | Route grubuna ait shell (sidebar, header, auth guard) |
-| `loading.tsx` | Next.js Suspense boundary — sadece route geçişleri için skeleton |
-| `error.tsx` | Next.js Error boundary — route düzeyinde kurtarma ekranı |
+| `page.tsx` | Imports and renders the feature section only (max ~15 lines) |
+| `layout.tsx` | Route group shell (sidebar, header, auth guard) |
+| `loading.tsx` | Next.js Suspense boundary — skeleton for route transitions |
+| `error.tsx` | Next.js Error boundary — route-level recovery screen |
+| `not-found.tsx` | 404 screen |
 
-## `page.tsx` Yapısı
+## Route Checklist
+
+When creating a new route, these 4 files are **required**:
+
+```
+app/(dashboard)/companies/
+├── page.tsx        ✓ required
+├── loading.tsx     ✓ required
+├── error.tsx       ✓ required
+└── not-found.tsx   ✓ required
+```
+
+## `page.tsx` Structure
 
 ```tsx
 // app/(dashboard)/companies/page.tsx
-import { CompanyListPage } from "@/features/company"
+import type { Metadata } from "next"
+import { CompanyListPage } from "@/features/company/sections"
+
+export const metadata: Metadata = { title: "Companies" }
 
 export default function Page() {
   return <CompanyListPage />
 }
 ```
 
-Metadata gerekiyorsa:
+Within `app/`, only import from `@/features/[name]/sections` or `@/features/[name]/components` barrels. Deep paths are forbidden.
 
-```tsx
-import type { Metadata } from "next"
-import { CompanyListPage } from "@/features/company"
+## `sections/index.ts` — Required Barrel
 
-export const metadata: Metadata = {
-  title: "Şirketler",
-}
+Every feature's `sections/` directory must have an `index.ts`. Update this file first when adding a new section.
 
-export default function Page() {
-  return <CompanyListPage />
-}
+```ts
+// features/company/sections/index.ts
+export { CompanyListPage } from "./company-list/CompanyListPage"
+export { CreateCompanyPage } from "./create-company/CreateCompanyPage"
 ```
 
 ## `loading.tsx` vs Skeleton Component
 
-`loading.tsx` yalnızca **route geçişi** sırasında Next.js tarafından gösterilir.
-Component düzeyindeki yükleme (`isLoading`) için `loading.tsx` kullanılmaz — skeleton component yazılır.
-
 ```
-// Route geçişi    → loading.tsx   (otomatik, Suspense)
-// isLoading true  → <MySkeleton /> (manuel, React Query)
+Route transition  → loading.tsx      (Next.js Suspense, automatic)
+isLoading true    → <MySkeleton />   (React Query, manual)
 ```
 
-## `error.tsx` Yapısı
-
-Route düzeyinde beklenmedik hataları yakalar. React Query `isError` ile karıştırılmaz.
+## `error.tsx` Structure
 
 ```tsx
 "use client"
+import { ErrorState } from "@/components/shared/ErrorState"
+import { Button } from "@/components/ui/button"
 
 export default function Error({ reset }: { reset: () => void }) {
   return (
     <ErrorState
-      title="Beklenmedik bir hata oluştu"
-      action={<Button onClick={reset}>Tekrar Dene</Button>}
+      title="An unexpected error occurred"
+      action={<Button onClick={reset}>Try Again</Button>}
     />
   )
 }
 ```
+
+## HTTP Error Code Table
+
+| HTTP | Handling |
+|---|---|
+| 400 | Inline alert above the form |
+| 401 | Redirect to login |
+| 403 | "Access denied" screen |
+| 404 | `not-found.tsx` |
+| 500 / Network | Toast (`toast.error`) |
+| Render crash | `ComponentErrorBoundary` |

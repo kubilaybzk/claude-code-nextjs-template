@@ -21,21 +21,23 @@ Path alias: `@/*` → `src/*`
 - Performance (memo / useMemo / useCallback — when to use and when not to) → `docs/rules/performance.md`
 
 ## Skills
-- **frontend-design** (`.agents/skills/frontend-design/SKILL.md`) — her component ve sayfa geliştirmesinde bu skill uygulanır. UI kodu yazılmadan önce design thinking adımı yapılır: purpose, tone, differentiation.
+- **frontend-design** (`.agents/skills/frontend-design/SKILL.md`) — applied to every component and page. Before writing UI code, go through design thinking: purpose, tone, differentiation.
 
 ## Key Rules (always apply)
-- `app/` is thin wrappers only — no business logic
+- `app/` is thin wrappers only — no business logic; max ~15 lines per page.tsx
 - `components/ui/` is never modified
 - All backend operations use React Query, never direct API calls in components
-- One component per file
-- JSDoc on every exported component and function
-- No raw Tailwind color utilities (`text-red-500` etc.) — use design tokens
+- One component per file; `index.tsx` filename forbidden — use component name
+- JSDoc + `@example` on every exported component and function
+- No raw Tailwind colors (`text-red-500` etc.) — use design tokens; `space-y/x-*` → `flex gap-*`; `w-4 h-4` → `size-4`
 - Feature `store/` only when explicitly requested
-- Empty state → `<EmptyState />` from `@/components/shared/EmptyState`
-- Error state → `<ErrorState />` from `@/components/shared/ErrorState`
-- Loading state → skeleton component (never spinner for content areas)
-- No `any` — use `unknown` + narrowing
-- Mutation success/error → `sonner` toast; form validation errors → inline only
-- Feature imports always via `index.ts` barrel — no direct internal paths
+- Empty state → `<EmptyState />` · Error state → `<ErrorState />` · Loading → skeleton (never spinner)
+- No `any` — use `unknown` + narrowing; no `// @ts-ignore`; no non-null assertion `!`
+- Mutation success/error → `sonner` toast; form validation → inline `<FormMessage />` only
+- Feature imports always via barrel (`sections/index.ts`) — no direct internal paths
+- Every route needs `loading.tsx` + `error.tsx` + `not-found.tsx`
+- Every data-fetching component wrapped in `<ComponentErrorBoundary>`
+- `<img>` forbidden — use `next/image`; `'use client'` only when interactivity needed
+- Text search inputs require `useDebounce` (300ms)
 - Icon-only buttons must have `aria-label`
-- No memo/useMemo/useCallback without profiler evidence — measure first, optimize second
+- No memo/useMemo/useCallback without profiler evidence

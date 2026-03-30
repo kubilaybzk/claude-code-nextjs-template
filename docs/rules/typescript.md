@@ -2,7 +2,7 @@
 
 ## No `any`
 
-`any` kullanımı yasaktır. Tipi bilinmiyorsa `unknown` kullanılır ve narrowing yapılır.
+`any` is forbidden. Use `unknown` and narrow the type explicitly.
 
 ```ts
 // ✗ Forbidden
@@ -16,7 +16,7 @@ function handle(data: unknown) {
 
 ## Explicit Props Interface
 
-Component props'ları her zaman ayrı bir interface olarak tanımlanır. Inline type yasak.
+Component props must always be defined as a separate named interface. Inline types are forbidden.
 
 ```tsx
 // ✗ Forbidden
@@ -33,15 +33,15 @@ export function CompanyCard({ name, id }: CompanyCardProps) { ... }
 
 ## API Response Types
 
-Backend'den gelen veri tipleri `services/[Name]Service.ts` içinde tanımlanır.
-Component'e ulaşana kadar type-safe olmalıdır.
+API response types are defined in `services/[Name]Service.ts`.
+Data must be type-safe before it reaches any component.
 
 ```ts
 // services/CompanyService.ts
 export interface Company {
   id: string
   name: string
-  created_at: string   // snake_case — backend'den geldiği gibi bırakılır
+  created_at: string   // snake_case — left as-is from the backend
 }
 
 export interface GetCompaniesResponse {
@@ -52,7 +52,7 @@ export interface GetCompaniesResponse {
 
 ## Non-null Assertion
 
-`!` (non-null assertion) kullanımından kaçınılır. Optional chaining `?.` veya explicit guard tercih edilir.
+Avoid the `!` non-null assertion. Prefer optional chaining `?.` or an explicit guard.
 
 ```ts
 // ✗ Avoid

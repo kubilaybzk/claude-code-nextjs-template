@@ -1,39 +1,39 @@
 # Barrel Export & Import Rules
 
-Her feature dışarıya yalnızca `index.ts` üzerinden açılır. Doğrudan iç path import yasaktır.
+Every feature exposes its public API only through `index.ts`. Direct internal path imports are forbidden.
 
-## Kural
+## Rule
 
 ```ts
-// ✗ Forbidden — iç path'e doğrudan erişim
+// ✗ Forbidden — direct internal path
 import { CompanyCard } from "@/features/company/sections/companyList/components/CompanyCard"
 import { useCompanies } from "@/features/company/sections/companyList/hooks/useCompanies"
 
-// ✓ Correct — barrel üzerinden
+// ✓ Correct — via barrel
 import { CompanyCard, useCompanies } from "@/features/company"
 ```
 
-## `index.ts` Neyi Export Etmeli?
+## What Should `index.ts` Export?
 
-Yalnızca başka feature veya `app/` katmanının kullanacağı şeyler export edilir.
-Feature içi bileşenler (`sections/`, `components/`) dışarıya açılmaz.
+Only export what other features or the `app/` layer need.
+Internal components (`sections/`, `components/`) are not exported.
 
 ```ts
 // features/company/index.ts
 
-// ✓ Dışarıya açılan — başka feature veya app/ kullanıyor
+// ✓ Public API — used by other features or app/
 export { CompanyListPage } from "./sections/companyList/CompanyListPage"
 export { CreateCompanyPage } from "./sections/createCompany/CreateCompanyPage"
 export type { Company } from "./types/company.types"
 
-// ✗ Buraya eklenmez — feature-internal
+// ✗ Do not export — feature-internal
 // export { CompanyCard } from "./sections/companyList/components/CompanyCard"
 // export { basicInfoSchema } from "./validations/basicInfoSchema"
 ```
 
-## `components/shared/` ve `services/` İçin
+## `components/shared/` and `services/`
 
-Bu dizinler feature değildir, barrel zorunluluğu yoktur. Doğrudan import yapılabilir.
+These directories are not features — no barrel requirement. Direct imports are fine.
 
 ```ts
 import { EmptyState } from "@/components/shared/EmptyState"
