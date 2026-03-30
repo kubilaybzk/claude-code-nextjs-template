@@ -6,8 +6,9 @@ Multiple component definitions in a single file are forbidden.
 
 ## Reusability First
 
-Before creating a new component, check if an existing one can be extended.
-Follow the placement decision tree in `docs/architecture.md`.
+**Before writing any component**, read `docs/shared-components.md`. If a matching component exists, use it — never rewrite.
+
+For placement decisions, follow the decision tree in `docs/architecture.md`.
 
 ## Error Boundary
 

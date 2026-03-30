@@ -8,6 +8,7 @@ Path alias: `@/*` → `src/*`
 ## Canonical Docs (source of truth)
 
 - Architecture, folder structure, component placement → `docs/architecture.md`
+- **Shared component registry (read before writing any feature)** → `docs/shared-components.md`
 - Naming conventions → `docs/rules/naming.md`
 - Data fetching & state management → `docs/rules/data.md`
 - User feedback (skeleton/empty/error/toast) → `docs/rules/feedback.md`
