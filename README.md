@@ -1,18 +1,18 @@
 # Privia Base Template
 
-Next.js (App Router) base template with shadcn/ui, TanStack Query, Redux Toolkit, and a built-in Claude Code agent system.
+Next.js (App Router) base template — shadcn/ui, TanStack Query, Redux Toolkit ve yerleşik Claude Code agent sistemi ile birlikte gelir.
 
 ---
 
-## Getting Started
+## Kurulum
 
-### Prerequisites
+### Gereksinimler
 
 - Node.js 18+
-- pnpm (recommended) or npm
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed and authenticated
+- pnpm (önerilen) veya npm
+- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) kurulu ve aktif
 
-### 1. Clone & Install
+### 1. Clone ve Yükle
 
 ```bash
 git clone <repo-url> my-project
@@ -22,191 +22,233 @@ pnpm install
 
 ---
 
-## Project Setup with Claude Code
+## Proje Kurulum Adımları (Claude Code ile)
 
-This template is designed to work with Claude Code from day one. Follow these steps in order after cloning.
+Bu template Claude Code ile birlikte çalışacak şekilde tasarlanmıştır. Clone'ladıktan sonra sırasıyla takip edin.
 
-### Step 1 — Introduce Your Project
+### Adım 1 — Projeyi Tanıt
 
-Open Claude Code in the project root and describe your project. Claude will save the context to `CLAUDE.md`.
+Claude Code'u proje kök dizininde açın ve projenizi tanıtın. Claude bilgileri `CLAUDE.md`'ye kaydeder.
 
 ```
 claude
 
-> This is [Project Name], a [brief description].
-> The backend API is at [URL]. Main entities are [X, Y, Z].
-> Save this to CLAUDE.md.
+> Bu [Proje Adı], [kısa açıklama].
+> Backend API adresi [URL]. Ana entity'ler: [X, Y, Z].
+> Bunları CLAUDE.md'ye kaydet.
 ```
 
-Claude will update `CLAUDE.md` with your project-specific details (API base URL, domain entities, team conventions) while preserving the existing architecture rules.
+Claude, mevcut mimari kuralları koruyarak projenize özel bilgileri (API URL, domain entity'leri, ekip konvansiyonları) `CLAUDE.md`'ye yazar.
 
-### Step 2 — Set Up Your Color Palette
+### Adım 2 — Renk Paletini Kur
 
-The template ships with default shadcn grayscale tokens in `src/app/globals.css`. You need to customize them for your brand.
+Template varsayılan shadcn gri tonları ile gelir (`src/app/globals.css`). Markanıza göre özelleştirmeniz gerekir.
 
-**Option A — You have a brand palette:**
+**Seçenek A — Mevcut palet var:**
 
 ```
-> Here is my color palette:
+> Renk paletim:
 > Primary: #2563EB (blue-600)
 > Destructive: #DC2626 (red-600)
 > Success: #16A34A (green-600)
 > Warning: #F59E0B (amber-500)
 >
-> Update globals.css with these colors as oklch values
-> for both light and dark themes.
+> globals.css'i bu renklere göre oklch değerleriyle güncelle.
+> Light ve dark tema için ayrı ayrı ayarla.
 ```
 
-**Option B — You don't have a palette yet:**
+**Seçenek B — Palet henüz yok:**
 
 ```
-> Generate a professional color palette for a [healthcare/fintech/e-commerce] app.
-> Apply it to globals.css with oklch values for light and dark themes.
-> Use the existing token structure (--primary, --secondary, --accent, --destructive, etc.)
+> [sağlık/fintech/e-ticaret] uygulaması için profesyonel bir renk paleti oluştur.
+> globals.css'e oklch değerleriyle uygula.
+> Mevcut token yapısını kullan (--primary, --secondary, --accent, --destructive, vb.)
 ```
 
-Claude will update the `:root` and `.dark` sections in `globals.css`, converting your hex/rgb values to oklch.
+### Adım 3 — Kural Setini Güncelle
 
-### Step 3 — Update Ruleset with Your Palette
-
-After the palette is set, have Claude register the new tokens in the styling rules:
+Palet ayarlandıktan sonra, Claude'un yeni token'ları kural dosyalarına kaydetmesini sağlayın:
 
 ```
-> Review the color palette in globals.css.
-> Update docs/rules/styling.md to document the allowed semantic tokens
-> and their intended usage (e.g., --success for positive states, --warning for alerts).
-> Also update .claude/QUICK_REF.md styling section if needed.
+> globals.css'teki renk paletini incele.
+> docs/rules/styling.md'yi güncelle — izin verilen semantic token'ları ve kullanım amaçlarını yaz.
+> .claude/QUICK_REF.md styling bölümünü de güncelle.
 ```
 
-This ensures all agents and future development follow your palette — no raw Tailwind colors, only your semantic tokens.
+### Adım 4 — Geliştirmeye Başla
 
-### Step 4 — Start Development
-
-Now you're ready to build features. Here's how to work with the agent system:
+Artık hazırsınız. Aşağıdaki agent sistemini kullanarak geliştirme yapabilirsiniz.
 
 ---
 
-## Working with Claude Code
-
-### Architecture Overview
+## Mimari
 
 ```
 src/
-├── app/                    # Thin route wrappers (~15 lines per page.tsx)
+├── app/                    # Sadece thin wrapper (~15 satır page.tsx)
 │   └── (dashboard)/
 │       └── companies/
-│           ├── page.tsx        # Imports from features, nothing else
+│           ├── page.tsx        # Feature'dan import eder, başka iş yapmaz
 │           ├── loading.tsx     # Skeleton UI
 │           ├── error.tsx       # Error boundary
-│           └── not-found.tsx   # 404 state
-├── features/               # Business logic lives here
+│           └── not-found.tsx   # 404 ekranı
+├── features/               # İş mantığı burada yaşar
 │   └── company/
-│       ├── index.ts            # Public barrel (only export pages + types)
+│       ├── index.ts            # Public barrel (sadece page + type export)
 │       ├── sections/
-│       │   ├── index.ts        # Section barrel (always update when adding)
+│       │   ├── index.ts        # Section barrel (yeni section → önce burayı güncelle)
 │       │   └── company-list/
 │       │       ├── CompanyListPage.tsx
 │       │       ├── components/
-│       │       └── steps/      # For multi-step forms
-│       ├── validations/        # Zod schemas
+│       │       └── steps/      # Multi-step formlar için
+│       ├── validations/        # Zod şemaları
 │       ├── constants/
 │       └── utils/
 ├── components/
-│   ├── ui/                 # shadcn primitives — NEVER modify
-│   └── shared/             # Reusable components (EmptyState, ErrorState, etc.)
-├── services/               # API service files (Axios)
+│   ├── ui/                 # shadcn primitives — KESİNLİKLE değiştirme
+│   └── shared/             # Ortak componentler (EmptyState, ErrorState, vb.)
+├── services/               # API servis dosyaları (Axios)
 └── lib/
     ├── api-client.ts       # Axios instance
-    └── query-keys.ts       # Centralized query key registry
+    └── query-keys.ts       # Merkezi query key kaydı
 ```
 
-### Using Agents
+---
 
-The template includes a custom agent team in `.claude/agents/`. These agents enforce project rules automatically.
+## Agent Sistemi — Kullanım Kılavuzu
 
-#### Create a New Feature
+Template, `.claude/agents/` altında hazır bir agent takımı ile gelir. Bu agentlar proje kurallarını otomatik olarak uygular.
 
-```
-> @feature-scaffolder Create a "company" feature with sections: company-list, create-company
-```
+### Agent Takımı
 
-This generates the full folder structure, barrel exports, route files (`page.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`), and a ready-to-use feature skeleton.
+| Agent | Dosya | Görevi |
+|---|---|---|
+| **Senior Frontend** | `agents/senior-frontend.md` | Feature/component geliştirme. İşi planlar, kodu yazar, diğer agentları çağırır. |
+| **Rules Checker** | `agents/rules-checker.md` | Kod yazılmadan **önce** çalışır. Shared component kontrolü, dosya yerleşimi, route dosyaları ve barrel export'ları doğrular. |
+| **Verify** | `agents/verify.md` | Kod yazıldıktan **sonra** çalışır. `tsc`, yasaklı pattern taraması, kural uyumluluğu kontrolü yapar. |
+| **Feature Scaffolder** | `agents/feature-scaffolder.md` | Sıfırdan yeni feature iskeleti oluşturur. `_template` klasörünü kopyalar, route dosyalarını yaratır. |
 
-#### Build a Component
-
-```
-> Build a CompanyList section that displays companies in a DataTable
-> with search, pagination, and delete action.
-```
-
-Claude will automatically:
-1. Check `docs/shared-components.md` for existing components to reuse
-2. Follow the placement decision tree in `docs/architecture.md`
-3. Use semantic design tokens (never raw Tailwind colors)
-4. Add error boundaries, loading skeletons, and empty states
-5. Ensure mobile-first responsive layout
-
-#### Validate Your Code
+### İş Akışı
 
 ```
-> @verify Check the company feature for rule violations
+1. senior-frontend  → task.md'yi doldurur (hedef, kapsam, checklist)
+2. rules-checker    → doğrulama yapar → PASS / FAIL
+3. senior-frontend  → kodu yazar
+4. verify           → tsc + kural kontrolü → PASS / FAIL
+5. FAIL → senior-frontend düzeltir → tekrar 4'e döner
 ```
 
-The verify agent runs:
-- `tsc --noEmit` for type errors
-- Checks for forbidden patterns (`any`, `@ts-ignore`, `<img>`, `console.log`, raw colors)
-- Validates barrel exports and route file completeness
+### Nasıl Kullanılır?
 
-### Key Rules (Always Enforced)
+#### Yeni Feature Oluşturma
 
-| Rule | Details |
+```
+> @feature-scaffolder "company" feature'ı oluştur, section'lar: company-list, create-company
+```
+
+Bu komut şunları yapar:
+- `src/features/company/` klasör yapısını oluşturur
+- Barrel export dosyalarını hazırlar
+- Route dosyalarını yaratır (`page.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`)
+
+#### Component / Sayfa Geliştirme
+
+```
+> senior-frontend agent olarak çalış.
+> CompanyList section'ı oluştur: DataTable ile listeleme, arama, sayfalama ve silme aksiyonu olsun.
+```
+
+Senior Frontend otomatik olarak:
+1. `docs/shared-components.md`'yi kontrol eder — mevcut component var mı?
+2. `docs/architecture.md`'deki karar ağacına göre dosya yerleşimini belirler
+3. Semantic design token kullanır (raw Tailwind renkleri yasak)
+4. Error boundary, loading skeleton ve empty state ekler
+5. Mobile-first responsive layout uygular
+
+#### Kod Doğrulama
+
+```
+> @verify company feature'ını kontrol et
+```
+
+Verify agent şunları tarar:
+- `tsc --noEmit` — TypeScript hataları
+- Yasaklı pattern'ler: `any`, `@ts-ignore`, `<img>`, `console.log`, raw renkler
+- Barrel export ve route dosyası eksiklikleri
+- JSDoc varlığı, EmptyState/ErrorState kullanımı
+
+#### Doğal Dil ile Kullanım
+
+Agent'ları @mention yerine doğal dille de çağırabilirsiniz:
+
+```
+> "task.md'yi doldur ve rules-checker'ı çağır"
+> "feature-scaffolder ile asset feature'ı oluştur"
+> "verify ile tsc ve kural kontrolü yap"
+```
+
+### Önemli Dosyalar
+
+| Dosya | Açıklama |
 |---|---|
-| **No raw Tailwind colors** | Use `text-foreground`, `bg-muted`, `text-destructive` etc. |
-| **Server Components first** | `'use client'` only when real interactivity is needed |
-| **React Query for all data** | No direct API calls in components, no server state in Redux |
-| **Error boundaries per component** | Each data-fetching component wrapped individually |
-| **Mobile-first responsive** | Base = mobile, scale up with `sm:` `md:` `lg:` |
-| **One component per file** | `index.tsx` as component filename is forbidden |
-| **Forms = react-hook-form + zod** | Each step gets its own schema and component |
-| **No premature optimization** | `memo`/`useMemo`/`useCallback` only with profiler evidence |
+| `.claude/QUICK_REF.md` | Tüm kuralların özeti — agentlar bunu okur, `docs/rules/` değil |
+| `.claude/task.md` | Aktif görev planı + checklist + sonuçlar |
+| `.claude/AGENTS.md` | Agent takımı yapısı ve iş akışı |
+| `docs/shared-components.md` | Component kayıt defteri — yazmadan önce mutlaka kontrol et |
 
-### Useful Commands
+---
+
+## Temel Kurallar
+
+| Kural | Detay |
+|---|---|
+| **Raw Tailwind renk yasak** | `text-foreground`, `bg-muted`, `text-destructive` vb. token kullan |
+| **Server Component öncelikli** | `'use client'` sadece gerçek interaktivite gerektiğinde |
+| **Tüm veri → React Query** | Component içinde doğrudan API çağrısı yok, Redux'ta server state yok |
+| **Component başına error boundary** | Her veri çeken component ayrı ayrı sarılır |
+| **Mobile-first responsive** | Base = mobil, `sm:` `md:` `lg:` ile büyüt |
+| **Dosya başına bir component** | `index.tsx` dosya adı olarak kullanılamaz |
+| **Form = react-hook-form + zod** | Her step ayrı component + ayrı şema |
+| **Erken optimizasyon yasak** | `memo`/`useMemo`/`useCallback` sadece profiler kanıtıyla |
+
+---
+
+## Komutlar
 
 ```bash
-# Development
-pnpm dev              # Start dev server
+# Geliştirme
+pnpm dev              # Dev sunucusu
 pnpm build            # Production build
-pnpm lint             # ESLint check
+pnpm lint             # ESLint kontrolü
 
-# With Claude Code
-claude                # Open Claude Code in terminal
-/compact              # Compress conversation context
-/model default        # Switch to default model
+# Claude Code
+claude                # Claude Code'u terminalde aç
+/compact              # Konuşma context'ini sıkıştır
 ```
 
 ---
 
-## Documentation Map
+## Dokümantasyon Haritası
 
-| File | Purpose |
+| Dosya | İçerik |
 |---|---|
-| `CLAUDE.md` | Project guide — stack, doc links, key rules |
-| `.claude/QUICK_REF.md` | Condensed rules for agents (~100 lines) |
-| `.claude/agents/*.md` | Agent role definitions |
-| `docs/architecture.md` | Folder structure, placement decision tree |
-| `docs/shared-components.md` | Component registry — check before writing any component |
-| `docs/rules/components.md` | Component patterns, error boundaries, performance |
-| `docs/rules/data.md` | React Query, state management, query keys |
-| `docs/rules/styling.md` | Design tokens, Tailwind constraints, responsive |
-| `docs/rules/routing.md` | Route anatomy, barrel exports |
-| `docs/rules/forms.md` | Step forms, zod schemas |
-| `docs/rules/feedback.md` | Loading/empty/error states, toast notifications |
-| `docs/rules/naming.md` | Naming conventions |
-| `docs/rules/typescript.md` | Type safety rules |
-| `docs/rules/a11y.md` | Accessibility minimums |
+| `CLAUDE.md` | Proje rehberi — stack, doküman linkleri, temel kurallar |
+| `.claude/QUICK_REF.md` | Agentlar için özet kurallar (~100 satır) |
+| `.claude/agents/*.md` | Agent rol tanımları |
+| `docs/architecture.md` | Klasör yapısı, component yerleşim karar ağacı |
+| `docs/shared-components.md` | Component kayıt defteri |
+| `docs/rules/components.md` | Component kuralları, error boundary, performance |
+| `docs/rules/data.md` | React Query, state yönetimi, query keys |
+| `docs/rules/styling.md` | Design token'lar, Tailwind kısıtlamaları, responsive |
+| `docs/rules/routing.md` | Route yapısı, barrel exports |
+| `docs/rules/forms.md` | Step formlar, zod şemaları |
+| `docs/rules/feedback.md` | Loading/empty/error state'ler, toast bildirimleri |
+| `docs/rules/naming.md` | İsimlendirme konvansiyonları |
+| `docs/rules/typescript.md` | TypeScript kuralları |
+| `docs/rules/a11y.md` | Erişilebilirlik minimumları |
 
 ---
 
-## License
+## Lisans
 
-Private — All rights reserved.
+Private — Tüm hakları saklıdır.
