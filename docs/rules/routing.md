@@ -38,7 +38,7 @@ export default function Page() {
 }
 ```
 
-Within `app/`, only import from `@/features/[name]/sections` or `@/features/[name]/components` barrels. Deep paths are forbidden.
+Within `app/`, only import from `@/features/[name]/sections` or the feature public barrel `@/features/[name]`. Deep paths are forbidden.
 
 ## `sections/index.ts` — Required Barrel
 

@@ -20,7 +20,7 @@ Report all errors with file + line.
 | No `any` | grep `any` in modified files |
 | No `// @ts-ignore` | grep `@ts-ignore` |
 | No `<img>` | grep `<img` |
-| No raw colors | grep `text-red-\|bg-gray-\|bg-white` |
+| No raw colors | grep `text-(red|blue|green|yellow|orange|purple|pink|gray|slate|zinc|neutral|stone)-\|bg-(red|blue|green|yellow|orange|purple|pink|gray|slate|zinc|neutral|stone)-\|bg-white\|text-white\|bg-\[#` |
 | No `console.log` | grep `console.log` |
 | `ComponentErrorBoundary` | every useQuery/useMutation component wrapped? |
 | Skeleton present | `isLoading` handled with skeleton, not spinner? |
