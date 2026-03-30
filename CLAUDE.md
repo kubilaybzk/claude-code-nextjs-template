@@ -1,36 +1,51 @@
-# Project Guide
+# Privia Base Template
 
-## Stack
+Next.js App Router + React 19 + TypeScript 5 + Tailwind 4 + shadcn/ui | **pnpm**
 
-Next.js (App Router) · shadcn/ui (radix-vega) · TanStack Query · Redux Toolkit · Axios
-Path alias: `@/*` → `src/*`
+## Mimari (3 katman)
 
-## Canonical Docs (source of truth)
+| Katman | Konum | Sorumluluk |
+|--------|-------|------------|
+| Route | `src/app/` | Thin wrapper (~15 satır), sadece feature section import eder |
+| Feature | `src/features/{name}/sections/{section}/` | Tüm iş mantığı burada yaşar |
+| Shared | `src/components/shared/` | Cross-feature yeniden kullanılabilir component'ler |
+| UI | `src/components/ui/` | shadcn primitive'leri — **ASLA değiştirme** |
+| Service | `src/services/` | API servisleri + React Query hook'ları |
+| Lib | `src/lib/` | Utility'ler, query-keys, API client'lar |
 
-- Architecture, folder structure, component placement → `docs/architecture.md`
-- **Shared component registry (read before writing any feature)** → `docs/shared-components.md`
-- Naming conventions → `docs/rules/naming.md`
-- Data fetching & state management → `docs/rules/data.md`
-- User feedback (skeleton/empty/error/toast) → `docs/rules/feedback.md`
-- App Router anatomy, route checklist, barrel exports → `docs/rules/routing.md`
-- Component rules & performance guidance → `docs/rules/components.md`
-- Step forms (react-hook-form + zod) → `docs/rules/forms.md`
-- Styling (design tokens, Tailwind constraints) → `docs/rules/styling.md`
-- TypeScript strictness & API types → `docs/rules/typescript.md`
-- Accessibility minimums → `docs/rules/a11y.md`
+## Evrensel Kurallar (her zaman geçerli)
 
-## Skills
+- `any` yasak → `unknown` + narrowing kullan
+- Raw Tailwind renkleri yasak → semantic token kullan (`text-foreground`, `bg-muted`, vb.)
+- `console.log`, `@ts-ignore`, `@ts-nocheck` yasak
+- Server Component varsayılan; `'use client'` sadece interaktivite gerektiğinde
+- Bir dosya = bir component, dosya adı `index.tsx` olamaz
+- Import alias: `@/*` → `./src/*`
 
-- **frontend-design** (`.agents/skills/frontend-design/SKILL.md`) — applied to every component and page. Before writing UI code, go through design thinking: purpose, tone, differentiation.
+## Komutlar
 
-## Key Rules (always apply) — short guardrails
+```bash
+pnpm dev      # geliştirme
+pnpm build    # production build
+pnpm lint     # linting
+```
 
-- `docs/architecture.md`: `app/` thin wrapper only (page.tsx ~15 lines), component placement decision tree
-- `components/ui/`: never modify (shadcn primitives)
-- `docs/rules/data.md`: backend operations via React Query only; no direct API calls in components; no server-state in Redux
-- `docs/rules/routing.md`: every route has `page.tsx` + `loading.tsx` + `error.tsx` + `not-found.tsx`; barrel-only imports from features
-- `docs/rules/components.md`: one component per file; `ComponentErrorBoundary` per data component; debounce for text search; no premature memoization
-- `docs/rules/typescript.md`: no `any`, no `// @ts-ignore`, avoid non-null `!`, explicit named props interfaces
-- `docs/rules/styling.md`: no raw Tailwind colors; use semantic tokens; `space-*` → `gap-*`, `w/h-*` → `size-*`
-- `docs/rules/feedback.md`: loading = skeleton (no spinner); empty/error states via shared components; mutations toast with `sonner`
-- `docs/rules/a11y.md`: icon-only buttons require `aria-label`; forms require labels
+## Çalışma Prensibi — ZORUNLU
+
+### Varsayılan: Hızlı mod (feature/component/sayfa geliştirme)
+Kullanıcı dosya veriyorsa veya ne yapılacağı belliyse:
+1. Verilen dosyaları tekrar okuma — zaten context'te
+2. Referans gerekiyorsa → `Glob` + `Read` ile tek bir benzer dosya oku
+3. Shared component kontrolü → `ls src/components/shared/`
+4. **Hemen kod yaz** — en fazla 3-5 dosya oku, 10'dan fazla araştırma tool call yapma
+
+### İstisna: Explore agent sadece şu durumlarda kullanılabilir
+- Bug/hata araştırması (root cause birden fazla dosyada olabilir)
+- Cross-feature refactoring (etki alanı belirsiz)
+- Kullanıcı açıkça "araştır", "incele", "bul" dediğinde
+- Codebase'de hiç örnek yokken ilk kez bir pattern oluşturulacaksa
+
+## Kural Sistemi
+
+Context-specific kurallar `.claude/rules/` altında glob pattern'leriyle otomatik yüklenir.
+Sadece dokunulan dosyayla eşleşen kurallar context'e dahil edilir.
