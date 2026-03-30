@@ -6,11 +6,11 @@ All forms use **react-hook-form** + **zod**. No exceptions.
 
 Each wizard step is a separate component inside `sections/[section]/steps/`.
 Each step has its own zod schema in `features/[name]/validations/`.
-Step state (current index, accumulated data) lives in the feature `store/` slice.
+Step state (current index, accumulated data) is managed with `useState` in the orchestrator component unless a Redux slice is explicitly requested.
 
 ```
 sections/createCompany/
-├── CreateCompanyPage.tsx      # orchestrates steps, reads step index from store
+├── CreateCompanyPage.tsx      # orchestrates steps, manages step index via useState
 ├── steps/
 │   ├── StepBasicInfo.tsx      # schema: basicInfoSchema.ts
 │   ├── StepAddress.tsx        # schema: addressSchema.ts

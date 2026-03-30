@@ -1,4 +1,4 @@
-yorum# Data & State Management Rules
+# Data & State Management Rules
 
 ## Server State → React Query
 

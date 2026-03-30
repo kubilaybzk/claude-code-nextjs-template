@@ -2,7 +2,7 @@
 
 ## Design Tokens
 
-Raw Tailwind color utilities yasak. Semantic design token kullanılır.
+Raw Tailwind color utilities are forbidden. Use semantic design tokens from the shadcn theme.
 
 ```tsx
 // ✗ Forbidden
@@ -14,16 +14,16 @@ Raw Tailwind color utilities yasak. Semantic design token kullanılır.
 <div className="bg-muted">...</div>
 ```
 
-## Tailwind Yasaklar
+## Tailwind Forbidden Patterns
 
-| Yasak | Doğru |
+| Forbidden | Use instead |
 |---|---|
-| `text-red-500`, `bg-blue-100` vb. | `text-destructive`, `bg-muted` vb. token |
-| `dark:` prefix | `bg-background`, `text-foreground` (token otomatik dark destekler) |
+| `text-red-500`, `bg-blue-100` etc. | `text-destructive`, `bg-muted` etc. |
+| `dark:` prefix | `bg-background`, `text-foreground` (tokens handle dark mode) |
 | `space-y-*`, `space-x-*` | `flex gap-*` |
 | `w-4 h-4` | `size-4` |
 | `bg-white`, `bg-gray-*` | `bg-background`, `bg-card`, `bg-muted` |
-| Inline `style={{ }}` | Tailwind class kullan |
+| Inline `style={{ }}` | Tailwind class |
 
 ## Conditional Class
 

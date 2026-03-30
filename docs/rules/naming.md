@@ -13,7 +13,7 @@
 | Folders | kebab-case | `company-list/`, `user-profile/` |
 | API response fields (from backend) | snake_case — leave as-is | `created_at`, `company_id` |
 
-## Yasaklar
+## Forbidden
 
-- `index.tsx` dosya adı yasak — component adını kullan (`CompanyCard.tsx`)
-- `index.ts` yalnızca barrel export dosyası olarak kullanılır
+- `index.tsx` as a filename is forbidden — use the component name (`CompanyCard.tsx`)
+- `index.ts` is reserved for barrel exports only
