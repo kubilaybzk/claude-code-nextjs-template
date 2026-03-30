@@ -60,10 +60,12 @@ Template varsayılan shadcn gri tonları ile gelir (`src/app/globals.css`). Mark
 **Seçenek B — Palet henüz yok:**
 
 ```
-> [sağlık/fintech/e-ticaret] uygulaması için profesyonel bir renk paleti oluştur.
-> globals.css'e oklch değerleriyle uygula.
-> Mevcut token yapısını kullan (--primary, --secondary, --accent, --destructive, vb.)
+> Projemize özel  profesyonel bir renk paleti oluştur. @.claude/skills/frontend-design kullan .                                                                                          
+> globals.css'e oklch değerleriyle uygula.                                                                                                                                                
+> Mevcut token yapısını kullan (--primary, --secondary, --accent, --destructive, vb.) rule kısımlarına bu skillerden bahset ve renk kodları hakkında revizeler yap.   
 ```
+
+
 
 ### Adım 3 — Kural Setini Güncelle
 

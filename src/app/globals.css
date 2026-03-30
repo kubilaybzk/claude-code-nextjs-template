@@ -49,72 +49,113 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* ── Surfaces: Cold Steel ── */
+  --background: oklch(0.96 0.012 240);
+  --foreground: oklch(0.14 0.04 268);
+  --card: oklch(0.98 0.008 242);
+  --card-foreground: oklch(0.14 0.04 268);
+  --popover: oklch(0.98 0.008 242);
+  --popover-foreground: oklch(0.14 0.04 268);
+
+  /* ── Brand: Deep Cyber Cyan ── */
+  --primary: oklch(0.40 0.15 185);
+  --primary-foreground: oklch(0.98 0.01 185);
+
+  /* ── Neutral: Armored Slate ── */
+  --secondary: oklch(0.92 0.014 248);
+  --secondary-foreground: oklch(0.16 0.04 268);
+  --muted: oklch(0.93 0.012 248);
+  --muted-foreground: oklch(0.46 0.03 252);
+
+  /* ── Accent: Tactical Amber ── */
+  --accent: oklch(0.76 0.17 65);
+  --accent-foreground: oklch(0.18 0.05 50);
+
+  /* ── Destructive: Alarm Red ── */
+  --destructive: oklch(0.50 0.26 18);
+
+  /* ── Borders & Input ── */
+  --border: oklch(0.86 0.015 248);
+  --input: oklch(0.86 0.015 248);
+  --ring: oklch(0.40 0.15 185);
+
+  /* ── Charts: Threat Level Scale ── */
+  --chart-1: oklch(0.55 0.16 185);
+  --chart-2: oklch(0.58 0.18 148);
+  --chart-3: oklch(0.76 0.17 68);
+  --chart-4: oklch(0.62 0.21 38);
+  --chart-5: oklch(0.52 0.26 18);
+
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ── Cyber Effects ── */
+  --glow-primary: oklch(0.40 0.15 185 / 25%);
+  --glow-accent: oklch(0.76 0.17 65 / 20%);
+  --glow-destructive: oklch(0.50 0.26 18 / 20%);
+
+  /* ── Sidebar ── */
+  --sidebar: oklch(0.95 0.01 248);
+  --sidebar-foreground: oklch(0.14 0.04 268);
+  --sidebar-primary: oklch(0.40 0.15 185);
+  --sidebar-primary-foreground: oklch(0.98 0.01 185);
+  --sidebar-accent: oklch(0.92 0.014 248);
+  --sidebar-accent-foreground: oklch(0.16 0.04 268);
+  --sidebar-border: oklch(0.86 0.015 248);
+  --sidebar-ring: oklch(0.40 0.15 185);
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* ── Surfaces: Void Indigo — near-black with deep chromatic character ── */
+  --background: oklch(0.10 0.04 270);
+  --foreground: oklch(0.92 0.03 190);
+  --card: oklch(0.14 0.04 268);
+  --card-foreground: oklch(0.92 0.03 190);
+  --popover: oklch(0.14 0.04 268);
+  --popover-foreground: oklch(0.92 0.03 190);
+
+  /* ── Brand: Electric Cyan — the "scan probe" color ── */
+  --primary: oklch(0.78 0.19 178);
+  --primary-foreground: oklch(0.10 0.04 270);
+
+  /* ── Neutral: Abyss Slate ── */
+  --secondary: oklch(0.18 0.04 268);
+  --secondary-foreground: oklch(0.92 0.03 190);
+  --muted: oklch(0.18 0.035 268);
+  --muted-foreground: oklch(0.55 0.04 225);
+
+  /* ── Accent: Neon Tactical Amber ── */
+  --accent: oklch(0.84 0.19 58);
+  --accent-foreground: oklch(0.14 0.05 50);
+
+  /* ── Destructive: Breach Red — maximum threat ── */
+  --destructive: oklch(0.62 0.28 12);
+
+  /* ── Borders & Input: Cyan Ghost Lines ── */
+  --border: oklch(0.78 0.10 190 / 10%);
+  --input: oklch(0.78 0.10 190 / 12%);
+  --ring: oklch(0.78 0.19 178);
+
+  /* ── Charts: Threat Level Dashboard ── */
+  --chart-1: oklch(0.76 0.18 178);
+  --chart-2: oklch(0.74 0.20 148);
+  --chart-3: oklch(0.84 0.19 62);
+  --chart-4: oklch(0.72 0.23 35);
+  --chart-5: oklch(0.62 0.28 12);
+
+  /* ── Cyber Effects: Intensified ── */
+  --glow-primary: oklch(0.78 0.19 178 / 35%);
+  --glow-accent: oklch(0.84 0.19 58 / 30%);
+  --glow-destructive: oklch(0.62 0.28 12 / 30%);
+
+  /* ── Sidebar: The Deepest Layer ── */
+  --sidebar: oklch(0.08 0.045 272);
+  --sidebar-foreground: oklch(0.92 0.03 190);
+  --sidebar-primary: oklch(0.78 0.19 178);
+  --sidebar-primary-foreground: oklch(0.98 0.015 185);
+  --sidebar-accent: oklch(0.18 0.04 268);
+  --sidebar-accent-foreground: oklch(0.92 0.03 190);
+  --sidebar-border: oklch(0.78 0.10 190 / 8%);
+  --sidebar-ring: oklch(0.78 0.19 178);
 }
 
 @layer base {
@@ -127,4 +168,219 @@
   html {
     @apply font-sans;
   }
+}
+
+/* ═══ Cyber Atmospheric Effects ═══ */
+
+/* Grid pattern overlay — SOC terminal grid */
+.cyber-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Dot matrix pattern — radar display */
+.cyber-dots {
+  background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Dark mode vignette — darkened edges for depth */
+.cyber-vignette {
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    transparent 40%,
+    oklch(0 0 0 / 40%) 100%
+  );
+}
+
+/* Noise grain texture — atmospheric depth */
+.cyber-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ── Glow Effects ── */
+
+.glow-primary {
+  box-shadow:
+    0 0 15px var(--glow-primary),
+    0 0 40px var(--glow-primary),
+    inset 0 0 15px var(--glow-primary);
+}
+
+.glow-primary-sm {
+  box-shadow: 0 0 12px var(--glow-primary);
+}
+
+.glow-primary-ring {
+  box-shadow:
+    0 0 0 1px var(--glow-primary),
+    0 0 12px var(--glow-primary);
+}
+
+.glow-accent {
+  box-shadow:
+    0 0 15px var(--glow-accent),
+    0 0 40px var(--glow-accent);
+}
+
+.glow-destructive {
+  box-shadow:
+    0 0 15px var(--glow-destructive),
+    0 0 40px var(--glow-destructive);
+}
+
+/* Hover glow transition */
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow:
+    0 0 0 1px var(--glow-primary),
+    0 0 20px var(--glow-primary);
+}
+
+/* ── Animations ── */
+
+/* Scan-line sweep — horizontal probe across screen */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.cyber-scan-line::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 5%,
+    var(--primary) 30%,
+    var(--primary) 70%,
+    transparent 95%
+  );
+  opacity: 0.2;
+  animation: scan-line 6s linear infinite;
+  pointer-events: none;
+  box-shadow: 0 0 8px var(--glow-primary);
+}
+
+/* Pulse glow — critical threat heartbeat */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 3px var(--glow-destructive);
+    opacity: 0.8;
+  }
+  50% {
+    box-shadow:
+      0 0 8px var(--glow-destructive),
+      0 0 24px var(--glow-destructive);
+    opacity: 1;
+  }
+}
+
+.pulse-critical {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Pulse glow — primary probe ping */
+@keyframes pulse-primary {
+  0%, 100% {
+    box-shadow: 0 0 3px var(--glow-primary);
+    opacity: 0.7;
+  }
+  50% {
+    box-shadow:
+      0 0 8px var(--glow-primary),
+      0 0 20px var(--glow-primary);
+    opacity: 1;
+  }
+}
+
+.pulse-primary {
+  animation: pulse-primary 2s ease-in-out infinite;
+}
+
+/* Breathing status — active process indicator */
+@keyframes breathe {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+.status-active {
+  animation: breathe 2.5s ease-in-out infinite;
+}
+
+/* Terminal cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Horizontal data stream */
+@keyframes data-stream {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.data-stream {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: data-stream 3s linear infinite;
+}
+
+/* ── Structural Effects ── */
+
+/* Gradient border — cyber panel edge lighting */
+.cyber-border {
+  position: relative;
+}
+.cyber-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    transparent 30%,
+    transparent 70%,
+    var(--primary) 100%
+  );
+  opacity: 0.25;
+  z-index: -1;
+  pointer-events: none;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+/* Top-edge accent line — tactical panel header */
+.cyber-top-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary),
+    transparent
+  );
+  opacity: 0.5;
 }
