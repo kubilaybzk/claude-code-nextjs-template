@@ -1,76 +1,23 @@
-
-# Project Architecture
+# Project Guide
 
 ## Stack
-- **Framework**: Next.js (App Router)
-- **UI**: shadcn/ui (radix-vega style)
-- **Data Fetching**: TanStack Query (React Query)
-- **State Management**: Redux Toolkit
-- **HTTP Client**: axios via `src/lib/api-client.ts`
+Next.js (App Router) · shadcn/ui (radix-vega) · TanStack Query · Redux Toolkit · Axios
+Path alias: `@/*` → `src/*`
 
-## Folder Structure
+## Docs
+- Architecture, folder structure, component placement → `docs/architecture.md`
+- Naming conventions (camelCase / PascalCase / snake_case) → `docs/rules/naming.md`
+- React Query usage & cache invalidation → `docs/rules/react-query.md`
+- State management (React Query vs Redux) → `docs/rules/state.md`
+- Step forms (react-hook-form + zod) → `docs/rules/forms.md`
+- Component rules (one per file, JSDoc) → `docs/rules/components.md`
+- Styling (design tokens, no raw Tailwind colors) → `docs/rules/styling.md`
 
-```
-src/
-├── app/                        # Next.js App Router — thin wrappers only (no business logic)
-│   ├── (public)/               # Unauthenticated routes
-│   └── (dashboard)/            # Authenticated/protected routes
-├── features/[name]/            # Feature modules (e.g. company, asset)
-│   ├── components/             # Components shared across multiple sections of this feature
-│   ├── sections/               # Page / flow level sections
-│   │   └── [section]/          # e.g. createCompany, companyList
-│   │       ├── *Page.tsx | *Provider.tsx   # Section root
-│   │       ├── components/                 # Components used ONLY in this section
-│   │       └── steps/                      # Wizard steps (if applicable)
-│   ├── validations/
-│   ├── store/                  # Redux slice for this feature (when needed)
-│   ├── constants/
-│   ├── utils/
-│   └── index.ts                # Feature public API (barrel export)
-├── components/
-│   ├── ui/                     # shadcn primitives — never modified directly
-│   └── shared/                 # Cross-feature shared components (DataTable, PageHeader, etc.)
-├── services/                   # API service classes (e.g. CompanyService.ts, AssetService.ts)
-├── lib/
-│   ├── api-client.ts           # Axios instance
-│   ├── query-keys.ts           # All React Query keys in one place
-│   └── [name].queries.ts       # React Query hooks per domain
-├── store/                      # Redux configureStore + root reducer (setup only)
-├── constants/                  # Platform-wide constants (statusCode, roles, etc.)
-├── hooks/                      # Shared custom hooks
-└── utils/                      # Shared utility functions
-```
-
-## Component Placement Decision Tree
-
-Ask: **"Can this component be used outside its current scope?"**
-
-```
-Used only in this section?           → features/[name]/sections/[section]/components/
-Used in 2+ sections of this feature? → features/[name]/components/
-Used across 2+ features?             → components/shared/
-shadcn primitive?                    → components/ui/  (do not modify)
-```
-
-## Services & Query Pattern
-
-```
-services/[Name]Service.ts     → Raw API calls (axios methods only, no React)
-lib/query-keys.ts             → Single source of truth for all query keys
-lib/[name].queries.ts         → useQuery / useMutation hooks for that domain
-```
-
-## State Management
-
-- **Global store** (`src/store/`): `configureStore` + root reducer wiring only.
-- **Feature store** (`features/[name]/store/`): `createSlice` definitions. Only create when a feature genuinely needs client-side state beyond React Query cache (e.g. wizard steps, multi-step form state).
-
-## Route Groups
-
-- `(public)` — no auth required
-- `(dashboard)` — requires authentication; layout handles session check
-- Route protection: optimistic cookie check in `proxy.ts` for redirects; Server Actions do their own auth verification.
-
-## Path Alias
-
-`@/*` resolves to `src/*` (configured in `tsconfig.json`).
+## Key Rules (always apply)
+- `app/` is thin wrappers only — no business logic
+- `components/ui/` is never modified
+- All backend operations use React Query, never direct API calls in components
+- One component per file
+- JSDoc on every exported component and function
+- No raw Tailwind color utilities (`text-red-500` etc.) — use design tokens
+- Feature `store/` only when explicitly requested
