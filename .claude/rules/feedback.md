@@ -1,5 +1,5 @@
 ---
-globs: ["**/*Loading*", "**/*loading*", "**/*Skeleton*", "**/*skeleton*", "**/*Error*", "**/*error*", "**/*Empty*", "**/*empty*", "**/sections/**"]
+globs: ["**/*Loading*", "**/*loading*", "**/*Skeleton*", "**/*skeleton*", "**/*Error*", "**/*error*", "**/*Empty*", "**/*empty*", "src/features/**"]
 description: Loading skeleton, empty state, error state, toast notification kuralları
 alwaysApply: false
 ---

@@ -21,10 +21,9 @@ app/(group)/feature-name/
 ```
 
 ## Barrel Export
-- Her feature'da `sections/index.ts` olmalı
-- Yeni section eklendiğinde `sections/index.ts` güncelle
-- `app/` dosyalarından import: sadece `@/features/[name]/sections` veya `@/features/[name]`
-- Deep path import yasak (`@/features/x/sections/y/components/z` gibi)
+- Her feature'da `index.ts` olmalı, main component export et
+- `app/` dosyalarından import: sadece `@/features/[name]`
+- Deep path import yasak (`@/features/x/components/y` gibi)
 
 ## Component Yerleştirme Kararı
 1. Sadece bir section'da mı kullanılıyor? → `features/{name}/sections/{section}/components/`

@@ -1,5 +1,5 @@
 ---
-globs: ["src/features/**/sections/**", "src/features/**/components/**", "src/components/shared/**"]
+globs: ["src/features/**", "src/components/shared/**"]
 description: Component mimarisi, error boundary, JSDoc, shared component registry, erişilebilirlik
 alwaysApply: false
 ---
@@ -10,7 +10,8 @@ alwaysApply: false
 - Bir dosya = bir component, PascalCase dosya adı = export adı
 - `index.tsx` dosya adı yasak
 - Props için ayrı `{ComponentName}Props` interface'i (inline type yasak)
-- JSDoc zorunlu: her exported component ve fonksiyona `@example` ile
+- JSDoc zorunlu: her exported component, fonksiyon, interface ve type'a `@example` ile
+- Yeni eklenen HER kod bloğuna (component, hook, helper, type) JSDoc yazılmalı — istisnasız
 - Server Component varsayılan; `'use client'` sadece gerçek interaktivite için
 - `<img>` yasak → `next/image` kullan, LCP için `priority` ekle
 

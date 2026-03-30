@@ -6,8 +6,8 @@ Next.js App Router + React 19 + TypeScript 5 + Tailwind 4 + shadcn/ui | **pnpm**
 
 | Katman | Konum | Sorumluluk |
 |--------|-------|------------|
-| Route | `src/app/` | Thin wrapper (~15 satır), sadece feature section import eder |
-| Feature | `src/features/{name}/sections/{section}/` | Tüm iş mantığı burada yaşar |
+| Route | `src/app/` | Thin wrapper (~15 satır), sadece feature import eder |
+| Feature | `src/features/{name}/` | Tüm iş mantığı: page component, sub-components, types |
 | Shared | `src/components/shared/` | Cross-feature yeniden kullanılabilir component'ler |
 | UI | `src/components/ui/` | shadcn primitive'leri — **ASLA değiştirme** |
 | Service | `src/services/` | API servisleri + React Query hook'ları |
@@ -44,6 +44,20 @@ Kullanıcı dosya veriyorsa veya ne yapılacağı belliyse:
 - Cross-feature refactoring (etki alanı belirsiz)
 - Kullanıcı açıkça "araştır", "incele", "bul" dediğinde
 - Codebase'de hiç örnek yokken ilk kez bir pattern oluşturulacaksa
+
+## Referans Sayfalar
+
+Yeni bir sayfa/feature oluştururken önce bu referansları oku ve aynı pattern'i takip et:
+
+| Tür | Referans dosya | Ne öğretir |
+|-----|---------------|------------|
+| Liste (tablo + kart) | `src/features/users/UserListSection.tsx` | DataTable, card grid, view toggle, arama, loading/error/empty state |
+| Kolon tanımları | `src/features/users/components/UserListColumns.tsx` | DataTableColumn tipi, responsive, actions |
+| Kart component | `src/features/users/components/UserCard.tsx` | Card layout, hover actions, icon kullanımı |
+| Kart skeleton | `src/features/users/components/UserCardSkeleton.tsx` | Skeleton pattern |
+| Service | `src/services/UserService.ts` | Query/mutation hook'ları, interface tanımları |
+| API client | `src/lib/api-client.ts` | Generic HTTP client oluşturma |
+| Route dosyaları | `src/app/(dashboard)/users/` | page, loading, error, not-found dosyaları |
 
 ## Kural Sistemi
 
