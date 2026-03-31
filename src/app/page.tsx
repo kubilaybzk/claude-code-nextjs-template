@@ -82,10 +82,12 @@ function SubTitle({ children }: { children: React.ReactNode }) {
 
 export default function PaletteShowcase() {
   const [isDark, setIsDark] = useState(false);
+  const [timestamp, setTimestamp] = useState("2026-03-31T13:58:41");
 
   useEffect(() => {
     const root = document.documentElement;
     setIsDark(root.classList.contains("dark"));
+    setTimestamp(new Date().toISOString().slice(0, 19));
   }, []);
 
   function toggleTheme() {
@@ -688,7 +690,7 @@ export default function PaletteShowcase() {
                   <span className="text-foreground">nmap -sV -sC 10.0.0.0/24</span>
                 </div>
                 <div className="text-muted-foreground">
-                  Starting Nmap scan at {new Date().toISOString().slice(0, 19)}
+                  Starting Nmap scan at {timestamp}
                 </div>
                 <div>
                   <span className="text-chart-2">Discovered</span>

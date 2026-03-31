@@ -170,6 +170,76 @@
   }
 }
 
+@layer components {
+  .app-shell {
+    @apply flex min-h-full flex-col;
+  }
+
+  .step-panel {
+    @apply flex gap-2 overflow-x-auto lg:w-64 lg:flex-col;
+  }
+
+  .step-panel__button {
+    @apply h-auto min-w-0 justify-start rounded-xl border px-3 py-3 text-left;
+  }
+
+  .step-panel__button--active {
+    @apply border-primary bg-primary/5;
+  }
+
+  .step-panel__button--idle {
+    @apply border-border;
+  }
+
+  .step-panel__content {
+    @apply flex items-start gap-3;
+  }
+
+  .step-panel__icon {
+    @apply flex size-8 items-center justify-center rounded-lg border text-sm;
+  }
+
+  .step-panel__text {
+    @apply min-w-0;
+  }
+
+  .step-panel__label {
+    @apply text-sm font-medium;
+  }
+
+  .step-panel__description {
+    @apply mt-1 text-xs text-muted-foreground;
+  }
+
+  .category-dropdown {
+    @apply flex flex-wrap gap-2;
+  }
+
+  .category-dropdown__button {
+    @apply gap-2;
+  }
+
+  .category-dropdown__button--active {
+    @apply ring-1 ring-primary/40;
+  }
+
+  .category-dropdown__icon {
+    @apply size-4;
+  }
+
+  .progress-bar {
+    @apply h-2 w-full overflow-hidden rounded-full bg-muted;
+  }
+
+  .progress-bar__fill {
+    @apply h-full rounded-full bg-primary transition-[width];
+  }
+
+  .countdown-timer {
+    @apply font-mono tabular-nums;
+  }
+}
+
 /* ═══ Cyber Atmospheric Effects ═══ */
 
 /* Grid pattern overlay — SOC terminal grid */
