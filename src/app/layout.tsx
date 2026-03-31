@@ -1,3 +1,4 @@
+import LayoutProvider from '@/components/layout/LayotuhProvider';
 import { Providers } from '@/components/providers/Providers';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -32,7 +33,9 @@ export default function RootLayout({
       className={cn('h-full', 'antialiased', geistSans.variable, geistMono.variable, 'font-sans', inter.variable)}
     >
       <body className="app-shell">
-        <Providers>{children}</Providers>
+        <Providers>
+          <LayoutProvider>{children}</LayoutProvider>
+        </Providers>
       </body>
     </html>
   );

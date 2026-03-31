@@ -158,6 +158,55 @@
   --sidebar-ring: oklch(0.78 0.19 178);
 }
 
+/* ── Cyber Effects ── */
+@keyframes header-grid-shift {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+@keyframes glitch-toggle {
+  0%, 100% { transform: translateX(0) scale(1); }
+  20% { transform: translateX(-2px) scale(1.05); }
+  40% { transform: translateX(2px) scale(0.95); }
+  60% { transform: translateX(-1px) scale(1.02); }
+  80% { transform: translateX(1px) scale(0.98); }
+}
+
+.header-cyber-grid {
+  background-image:
+    linear-gradient(0deg, var(--primary) 0.5px, transparent 0.5px),
+    linear-gradient(90deg, var(--primary) 0.5px, transparent 0.5px);
+  background-size: 40px 40px;
+  opacity: 0.04;
+  position: absolute;
+  inset: 0;
+  animation: header-grid-shift 30s linear infinite;
+  pointer-events: none;
+}
+
+.theme-toggle-glitch {
+  animation: glitch-toggle 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.glow-avatar {
+  box-shadow: 0 0 16px var(--glow-primary);
+}
+
+/* ── Header Separators — Responsive opacity for visibility ── */
+.header-separator {
+  @apply bg-primary/20 dark:bg-primary/30 transition-colors;
+}
+
+/* ── Focus Ring Utilities ── */
+.focus-ring {
+  @apply focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-1;
+}
+
+/* ── Mono Typography Utilities ── */
+.mono-label {
+  @apply font-mono text-[11px];
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

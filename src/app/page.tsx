@@ -105,47 +105,7 @@ export default function PaletteShowcase() {
       <div className="cyber-scan-line pointer-events-none fixed inset-0 overflow-hidden" />
 
       {/* Header — Command Bar */}
-      <header className="cyber-top-line relative border-b border-border bg-card/70 backdrop-blur-md">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-3">
-            <div className="glow-primary-sm flex size-10 items-center justify-center rounded-lg bg-primary">
-              <Shield className="size-5 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-base font-bold tracking-wide text-foreground uppercase">
-                PMAP
-                <span className="ml-2 text-xs font-normal text-primary">
-                  Design System
-                </span>
-              </h1>
-              <p className="font-mono text-[11px] text-muted-foreground">
-                <span className="text-primary">$</span> threat_intel
-                <span className="text-muted-foreground/50">::</span>
-                palette_v2
-                <span className="cursor-blink ml-1 inline-block h-3 w-1 bg-primary" />
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5">
-              <span className="pulse-primary inline-block size-1.5 rounded-full bg-primary" />
-              <span className="font-mono text-[10px] text-muted-foreground">SYSTEM ONLINE</span>
-            </div>
-            <Separator orientation="vertical" className="h-6" />
-            <Badge variant="default" className="font-mono text-[10px]">v2.0</Badge>
-            <div className="flex items-center gap-1.5 rounded-md border border-border bg-muted/50 px-2 py-1">
-              <Sun className="size-3 text-muted-foreground" />
-              <Switch
-                id="theme-toggle"
-                checked={isDark}
-                onCheckedChange={toggleTheme}
-                size="sm"
-              />
-              <Moon className="size-3 text-muted-foreground" />
-            </div>
-          </div>
-        </div>
-      </header>
+
 
       <main className="relative mx-auto flex max-w-6xl flex-col gap-10 px-6 py-10">
         {/* ═══ COLOR PALETTE ═══ */}
